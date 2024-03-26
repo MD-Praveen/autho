@@ -6,7 +6,7 @@ const link = 'mongodb://127.0.0.1:27017/myapp';
 
 const mongoose = require('mongoose');
 
-mongoose.connect(link);
+mongoose.connect(link,  { useNewUrlParser: true });
 const db = mongoose.connection;
 
 db.on('error',(err) => {console.log(err)});
