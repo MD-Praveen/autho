@@ -1,12 +1,13 @@
 const express = require('express');
 const port = 8000;
 const app = express();
+require('dotenv').config()
 
 const layout = require('express-layouts');
 const db = require('./config/mongoose');        //for DataBase
 
 const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
+// const MongoDBStore = require('connect-mongodb-session')(session);
 
 const cookieParser = require('cookie-parser');
 // Passport Authoritication 
@@ -17,7 +18,7 @@ const googleStrategy = require('./config/googleAutho');
 // Flash Messages
 const connectFlash = require('connect-flash');
 const flashMiddleware = require('./config/flashmessage'); 
-const uri = "mongodb+srv://sriharijagan333:o8J4s6T2i23my8q1@cluster0.2xscnr7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
 app.set('view engine', 'ejs');
 
 app.use(layout)
@@ -25,17 +26,19 @@ app.use(express.static('asserts'));
 app.use(cookieParser()); 
 app.use(express.urlencoded());
 
-const store = new MongoDBStore({
-    uri: uri,
-    collection: 'sessions'
-});
+// console.log('MongoDB URI:', process.env.MONGO_DB);
+
+// const store = new MongoDBStore({
+//     uri: process.env.MONGO_DB,
+//     collection: 'sessions'
+// });
 
 app.use(session({
     name: 'Myapp',
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    store: store,
+    // store: store,
     cookie: {
         maxAge: 1000 * 60 * 10
     }
