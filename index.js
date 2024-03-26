@@ -17,7 +17,7 @@ const googleStrategy = require('./config/googleAutho');
 // Flash Messages
 const connectFlash = require('connect-flash');
 const flashMiddleware = require('./config/flashmessage'); 
-
+const uri = "mongodb+srv://sriharijagan333:o8J4s6T2i23my8q1@cluster0.2xscnr7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 app.set('view engine', 'ejs');
 
 app.use(layout)
@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use(express.urlencoded());
 
 const store = new MongoDBStore({
-    uri: 'mongodb://localhost:27017/myapp',
+    uri: uri,
     collection: 'sessions'
 });
 
