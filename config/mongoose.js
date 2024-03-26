@@ -9,7 +9,15 @@ const link = 'mongodb://127.0.0.1:27017/myapp';
 
 const mongoose = require('mongoose');
 
-mongoose.connect(uri);
+mongoose.connect(link, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    tls: true,
+    tlsAllowInvalidCertificates: true, // Use only if MongoDB uses self-signed certificates
+    tlsCAFile: '/path/to/ca.pem', // Optional: Provide CA certificate if MongoDB uses custom CA
+    tlsCertificateKeyFile: '/path/to/client.pem' // Optional: Provide client certificate for mutual TLS
+});
+
 const db = mongoose.connection;
 
 db.on('error',(err) => {console.log(err)});
